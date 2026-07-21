@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "meminios-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "APP_ORIGIN": "http://127.0.0.1:5173",
+    "DEV_AUTH_ENABLED": "true",
+    "DATABASE_ENDPOINT": "postgres://meminios:meminios@127.0.0.1:55432/meminios",
+    "OBJECT_STORE_ENDPOINT": "r2://meminios-local",
+    "QUEUE_ENDPOINT": "cloudflare-queues://local",
+    "KMS_ENDPOINT": "local://development-only",
+  },
+  "queues": {
+    "producers": [
+      { "binding": "INGEST_QUEUE", "queue": "meminios-ingest-local" },
+      { "binding": "ENRICH_QUEUE", "queue": "meminios-enrich-local" },
+      { "binding": "SIGNAL_QUEUE", "queue": "meminios-signal-local" },
+      { "binding": "DREAM_QUEUE", "queue": "meminios-dream-local" },
+    ],
+  },
+  "r2_buckets": [{ "binding": "OBJECTS", "bucket_name": "meminios-local" }],
+  "kv_namespaces": [{ "binding": "CONFIG_KV", "id": "00000000000000000000000000000000" }],
+  "durable_objects": {
+    "bindings": [{ "name": "TENANT_REALTIME", "class_name": "TenantRealtime" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["TenantRealtime"] }],
+  "triggers": {
+    "crons": ["15 5 * * *"],
+  },
+  "observability": { "enabled": true },
+}

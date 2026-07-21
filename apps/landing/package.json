@@ -1,0 +1,31 @@
+{
+  "name": "@meminios/landing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "clean": "rm -rf .next coverage",
+    "dev": "next dev --port 3000",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "start": "next start --port 3000",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@meminios/shared": "workspace:*",
+    "@meminios/ui": "workspace:*",
+    "lucide-react": "1.25.0",
+    "next": "16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3",
+    "vercel": "56.4.1",
+    "vitest": "4.1.10"
+  }
+}

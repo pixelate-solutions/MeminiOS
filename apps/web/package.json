@@ -1,0 +1,37 @@
+{
+  "name": "@meminios/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf dist coverage",
+    "dev": "vite --host 0.0.0.0",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@meminios/shared": "workspace:*",
+    "@meminios/ui": "workspace:*",
+    "@tanstack/react-query": "5.101.3",
+    "@tanstack/react-router": "1.170.18",
+    "@xyflow/react": "12.11.2",
+    "lucide-react": "1.25.0",
+    "motion": "12.42.2",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "jsdom": "29.1.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "meminios",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.15.1",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "db:down": "docker compose -f infra/docker-compose.yml down",
+    "db:migrate": "pnpm --filter @meminios/db migrate",
+    "db:seed": "pnpm --filter @meminios/db seed",
+    "db:up": "docker compose -f infra/docker-compose.yml up -d postgres",
+    "dev": "pnpm db:up && concurrently --kill-others-on-fail -n web,api,ingest,enrich,signals,dream -c blue,magenta,cyan,yellow,red,green \"pnpm --filter @meminios/web dev\" \"pnpm --filter @meminios/api dev\" \"pnpm --filter @meminios/ingest-worker dev\" \"pnpm --filter @meminios/enrich-worker dev\" \"pnpm --filter @meminios/signal-worker dev\" \"pnpm --filter @meminios/dream-worker dev\"",
+    "dev:web": "pnpm --filter @meminios/web dev",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:integration": "pnpm --filter @meminios/db test:integration",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "concurrently": "10.0.3",
+    "prettier": "3.9.5",
+    "turbo": "2.10.5",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
+  }
+}

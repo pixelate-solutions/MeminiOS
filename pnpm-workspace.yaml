@@ -1,0 +1,27 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+overrides:
+  postcss: 8.5.20
+
+allowBuilds:
+  "@google/genai": true
+  cpu-features: true
+  esbuild: true
+  protobufjs: true
+  sharp: true
+  ssh2: true
+  workerd: true
+
+minimumReleaseAgeExclude:
+  - "@anthropic-ai/sdk@0.112.4"
+  - "@cloudflare/workers-types@5.20260721.1"
+  - "@tanstack/query-core@5.101.3"
+  - "@tanstack/react-query@5.101.3"
+  - vercel@56.4.1
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - workerd

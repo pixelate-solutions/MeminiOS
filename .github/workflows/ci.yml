@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: meminios
+          POSTGRES_USER: meminios
+          POSTGRES_PASSWORD: meminios
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U meminios -d meminios"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgres://meminios:meminios@127.0.0.1:5432/meminios
+      CI: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.4.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Strict typecheck
+        run: pnpm typecheck
+      - name: Unit, permission fuzz, and injection gates
+        run: pnpm test
+      - name: Apply migration and seed
+        run: pnpm db:migrate && pnpm db:seed
+      - name: Two-tenant RLS integration suite
+        run: pnpm test:integration
+      - name: Production builds
+        run: pnpm build
+      - name: Formatting
+        run: pnpm format:check
