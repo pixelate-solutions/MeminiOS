@@ -1,3 +1,4 @@
+import { mcpTools } from "@meminios/shared";
 import { demoBootstrap } from "@meminios/shared/demo";
 import type { Context } from "hono";
 import type { Env, Variables } from "./env";
@@ -12,49 +13,7 @@ interface JsonRpcRequest {
   params?: { name?: string; arguments?: Record<string, unknown> };
 }
 
-const tools = [
-  {
-    name: "brain_search",
-    description: "Search permission-visible company knowledge.",
-    inputSchema: { type: "object", properties: { query: { type: "string" } }, required: ["query"] },
-  },
-  {
-    name: "brain_answer",
-    description: "Synthesize a cited answer with explicit gaps.",
-    inputSchema: {
-      type: "object",
-      properties: { question: { type: "string" } },
-      required: ["question"],
-    },
-  },
-  {
-    name: "brain_graph_query",
-    description: "Traverse typed, permission-checked relationships.",
-    inputSchema: { type: "object", properties: { query: { type: "string" } }, required: ["query"] },
-  },
-  {
-    name: "brain_get_skill",
-    description: "Get a human-approved executable skill.",
-    inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] },
-  },
-  {
-    name: "brain_propose_fact",
-    description: "Propose a pending fact for human review; never publishes directly.",
-    inputSchema: {
-      type: "object",
-      properties: {
-        statement: { type: "string" },
-        source_ids: { type: "array", items: { type: "string" } },
-      },
-      required: ["statement", "source_ids"],
-    },
-  },
-  {
-    name: "brain_signals",
-    description: "List proactive signals whose entire evidence set is readable.",
-    inputSchema: { type: "object", properties: { state: { type: "string" } } },
-  },
-] as const;
+const tools = mcpTools;
 
 function textResult(value: unknown) {
   return { content: [{ type: "text", text: JSON.stringify(value, null, 2) }] };
