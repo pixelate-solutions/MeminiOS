@@ -6,6 +6,7 @@ import { Toast } from "./components/toast";
 import { TopBar } from "./components/top-bar";
 import { useTheme } from "./hooks/use-theme";
 import { AdminSurface } from "./surfaces/admin";
+import { AgentsSurface } from "./surfaces/agents";
 import { AskSurface } from "./surfaces/ask";
 import { BriefSurface } from "./surfaces/brief";
 const MapSurface = lazy(() =>
@@ -15,7 +16,7 @@ const SkillsSurface = lazy(() =>
   import("./surfaces/skills").then((module) => ({ default: module.SkillsSurface })),
 );
 
-export type Surface = "brief" | "ask" | "map" | "skills" | "admin";
+export type Surface = "brief" | "ask" | "map" | "skills" | "agents" | "admin";
 
 export function ProductApp() {
   const { data } = useQuery({ queryKey: ["bootstrap"], queryFn: fetchBootstrap });
@@ -61,6 +62,7 @@ export function ProductApp() {
     if (action.startsWith("ask")) setSurface("ask");
     else if (action.startsWith("map")) setSurface("map");
     else if (action.startsWith("skills")) setSurface("skills");
+    else if (action.startsWith("agents") || action.startsWith("mcp")) setSurface("agents");
     else setSurface("brief");
   };
 
@@ -96,6 +98,7 @@ export function ProductApp() {
             <SkillsSurface skills={data.skills} onToast={showToast} />
           </Suspense>
         )}
+        {surface === "agents" && <AgentsSurface onToast={showToast} />}
         {surface === "admin" && (
           <AdminSurface focus={adminFocus} onBack={() => setSurface("brief")} />
         )}

@@ -396,6 +396,13 @@ export const demoBootstrap = {
     { id: "cmd-map", group: "Navigate", label: "Explore the map", hint: "M", action: "map" },
     { id: "cmd-skills", group: "Navigate", label: "Browse skills", hint: "S", action: "skills" },
     {
+      id: "cmd-agents",
+      group: "Navigate",
+      label: "Connect an agent (MCP)",
+      hint: "G",
+      action: "agents",
+    },
+    {
       id: "cmd-query-pricing",
       group: "Ask",
       label: "Who approves pricing exceptions in EMEA?",

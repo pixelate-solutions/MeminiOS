@@ -185,6 +185,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@meminios/retrieval':
+        specifier: workspace:*
+        version: link:../../packages/retrieval
       '@meminios/shared':
         specifier: workspace:*
         version: link:../../packages/shared

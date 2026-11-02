@@ -3,7 +3,7 @@ import { Command, Moon, Sun } from "lucide-react";
 import type { Surface } from "../product-app";
 import type { Theme } from "../hooks/use-theme";
 
-const surfaces: Surface[] = ["brief", "ask", "map", "skills"];
+const surfaces: Surface[] = ["brief", "ask", "map", "skills", "agents"];
 
 export interface TopBarProps {
   surface: Surface;

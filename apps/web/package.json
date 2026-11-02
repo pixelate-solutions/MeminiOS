@@ -13,6 +13,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@meminios/retrieval": "workspace:*",
     "@meminios/shared": "workspace:*",
     "@meminios/ui": "workspace:*",
     "@tanstack/react-query": "5.101.3",
