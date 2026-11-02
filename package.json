@@ -13,6 +13,7 @@
     "db:migrate": "pnpm --filter @meminios/db migrate",
     "db:seed": "pnpm --filter @meminios/db seed",
     "db:up": "docker compose -f infra/docker-compose.yml up -d postgres",
+    "demo": "pnpm --filter @meminios/web exec vite --port 4108 --strictPort",
     "dev": "pnpm db:up && concurrently --kill-others-on-fail -n web,api,ingest,enrich,signals,dream -c blue,magenta,cyan,yellow,red,green \"pnpm --filter @meminios/web dev\" \"pnpm --filter @meminios/api dev\" \"pnpm --filter @meminios/ingest-worker dev\" \"pnpm --filter @meminios/enrich-worker dev\" \"pnpm --filter @meminios/signal-worker dev\" \"pnpm --filter @meminios/dream-worker dev\"",
     "dev:web": "pnpm --filter @meminios/web dev",
     "format": "prettier --write .",
